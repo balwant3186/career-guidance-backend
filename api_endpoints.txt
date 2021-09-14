@@ -1,0 +1,13 @@
+
+
+// Health check api
+/health
+
+// Authentication routes
+1. Login -> /auth/login(post request)
+2. signup -> /auth/signup(post request)
+3. forget -> /auth/forget_password
+
+
+// Collection name and fields
+1. signup fields -> name, email, phone, class, school, city, image, password
