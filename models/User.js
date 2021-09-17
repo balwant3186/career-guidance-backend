@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const { isEmail, isInt, isMobilePhone } = require('validator')
-
+const { isEmail, isMobilePhone } = require('validator')
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -37,12 +37,32 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter a city name"],
     },
-    // image: {
-    //     type: String,
-    //     validate: [isAlpha, 'Please enter a valid image']
-    // }
+    image: {
+        data: Buffer,
+        type: String
+    }
 })
 
+userSchema.statics.login = async function(email, password) {
+    const user = await this.findOne({ email })
+    if(user) {
+        const auth = await bcrypt.compare(password, user.password)
+        if(auth) {
+            return user
+        } else {
+            throw Error('incorrect password')
+        }
+    } else {
+        throw Error('incorrect email')
+    }
+}
+
+
+userSchema.pre('save', async function (next) {
+    let salt = await bcrypt.genSalt()
+    this.password = await bcrypt.hash(this.password, salt)
+    next()
+})
 
 const User = mongoose.model('user', userSchema)
 
