@@ -1,6 +1,7 @@
 // package imports
 const express = require('express')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 
 
 // File imports
@@ -19,6 +20,7 @@ mongoose.connect(dbUrl)
 const app = express()
 
 app.use(express.json())
+app.use(cookieParser())
 
 
 app.get('/health', (req, res) => res.send('true'))

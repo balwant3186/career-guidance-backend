@@ -6,6 +6,7 @@
 // Authentication routes
 1. Login -> /auth/login(post request)
 2. signup -> /auth/signup(post request)
+3. Add email verification
 3. forget -> /auth/forget_password
 
 

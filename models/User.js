@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { isEmail, isInt, isMobilePhone } = require('validator')
+const { isEmail, isMobilePhone } = require('validator')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
@@ -37,10 +37,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter a city name"],
     },
-    // image: {
-    //     type: String,
-    //     validate: [isAlpha, 'Please enter a valid image']
-    // }
+    image: {
+        data: Buffer,
+        type: String
+    }
 })
 
 userSchema.statics.login = async function(email, password) {
